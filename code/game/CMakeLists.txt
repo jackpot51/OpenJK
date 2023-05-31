@@ -373,7 +373,7 @@ if(WIN32)
 	set(SPGameFiles ${SPGameFiles} ${SPGameWin32Files})
 endif(WIN32)
 
-add_library(${SPGame} SHARED ${SPGameFiles})
+add_library(${SPGame} STATIC ${SPGameFiles})
 
 # Hide symbols not explicitly marked public.
 set_property(TARGET ${SPGame} APPEND PROPERTY COMPILE_OPTIONS ${OPENJK_VISIBILITY_FLAGS})

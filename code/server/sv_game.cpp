@@ -44,8 +44,6 @@ Ghoul2 Insert Start
 Ghoul2 Insert End
 */
 
-static void *gameLibrary;
-
 //prototypes
 extern void Com_WriteCam ( const char *text );
 extern void Com_FlushCamFile();
@@ -407,8 +405,6 @@ void SV_ShutdownGameProgs (qboolean shutdownCin) {
 
 	SCR_StopCinematic();
 	CL_ShutdownCGame();	//we have cgame burried in here.
-
-	Sys_UnloadDll( gameLibrary );
 
 	ge = NULL;
 	cgvm.entryPoint = 0;
@@ -878,6 +874,8 @@ static bool SV_WE_SetTempGlobalFogColor( vec3_t color )
 	return re.SetTempGlobalFogColor( color );
 }
 
+extern "C" Q_EXPORT game_export_t* QDECL GetGameAPI( game_import_t *import );
+
 /*
 ===============
 SV_InitGameProgs
@@ -1054,29 +1052,21 @@ void SV_InitGameProgs (void) {
 	const char *gamename = "jagame";
 #endif
 
-	GetGameAPIProc *GetGameAPI;
-	gameLibrary = Sys_LoadSPGameDll( gamename, &GetGameAPI );
-	if ( !gameLibrary )
-		Com_Error( ERR_DROP, "Failed to load %s library", gamename );
-
 	ge = (game_export_t *)GetGameAPI( &import );
 	if (!ge)
 	{
-		Sys_UnloadDll( gameLibrary );
 		Com_Error( ERR_DROP, "Failed to load %s library", gamename );
 	}
 
 	if (ge->apiversion != GAME_API_VERSION)
 	{
 		int apiVersion = ge->apiversion;
-		Sys_UnloadDll( gameLibrary );
 		Com_Error (ERR_DROP, "game is version %i, not %i", apiVersion, GAME_API_VERSION);
 	}
 
 	//hook up the client while we're here
-	if ( !CL_InitCGameVM( gameLibrary ) )
+	if ( !CL_InitCGameVM() )
 	{
-		Sys_UnloadDll( gameLibrary );
 		Com_Error ( ERR_DROP, "Failed to load client game functions" );
 	}
 
@@ -1109,4 +1099,3 @@ qboolean SV_GameCommand( void ) {
 
 	return ge->ConsoleCommand();
 }
-

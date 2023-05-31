@@ -43,7 +43,7 @@ void sbt_mono_L3(float *sample, short *pcm, int ch)
 	for (i = 0; i < 18; i++)
 	{
 		fdct32(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-		window(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+		window32(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
 		sample += 32;
 		pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
 		pcm += 32;
@@ -59,7 +59,7 @@ void sbt_dual_L3(float *sample, short *pcm, int ch)
 		for (i = 0; i < 18; i++)
 		{
 			fdct32(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-			window_dual(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+			window32_dual(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
 			sample += 32;
 			pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
 			pcm += 64;
@@ -70,7 +70,7 @@ void sbt_dual_L3(float *sample, short *pcm, int ch)
 		for (i = 0; i < 18; i++)
 		{
 			fdct32(sample, pMP3Stream->vbuf2 + pMP3Stream->vb2_ptr);
-			window_dual(pMP3Stream->vbuf2, pMP3Stream->vb2_ptr, pcm + 1);
+			window32_dual(pMP3Stream->vbuf2, pMP3Stream->vb2_ptr, pcm + 1);
 			sample += 32;
 			pMP3Stream->vb2_ptr = (pMP3Stream->vb2_ptr - 32) & 511;
 			pcm += 64;

@@ -36,7 +36,7 @@ USER INTERFACE SABER LOADING & DISPLAY CODE
 #include "../ghoul2/G2.h"
 
 #define MAX_SABER_DATA_SIZE 0x80000
-char	SaberParms[MAX_SABER_DATA_SIZE];
+extern char	SaberParms[MAX_SABER_DATA_SIZE];
 qboolean	ui_saber_parms_parsed = qfalse;
 
 static qhandle_t redSaberGlowShader;
@@ -441,7 +441,7 @@ void UI_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 	DC->addRefEntityToScene( &saber );
 }
 
-saber_colors_t TranslateSaberColor( const char *name )
+static saber_colors_t TranslateSaberColor( const char *name )
 {
 	if ( !Q_stricmp( name, "red" ) )
 	{

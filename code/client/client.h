@@ -400,7 +400,7 @@ void CIN_CloseAllVideos(void);
 //
 // cl_cgame.c
 //
-qboolean CL_InitCGameVM( void *gameLibrary );
+qboolean CL_InitCGameVM( void );
 void CL_InitCGame( void );
 void CL_ShutdownCGame( void );
 qboolean CL_GameCommand( void );

@@ -179,6 +179,28 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 	#endif
 
 	#define DLL_EXT ".so"
+
+// Redox
+#elif defined(__redox__)
+
+    #define OS_STRING "Redox"
+
+	#define QINLINE inline
+
+	#define PATH_SEP '/'
+
+	#if !defined(ARCH_STRING)
+		#error ARCH_STRING should be defined by the build system
+	#endif
+
+	#if defined(__x86_64__)
+		#define idx64
+	#endif
+
+    #define Q3_LITTLE_ENDIAN
+
+	#define DLL_EXT ".so"
+
 #endif
 
 #if (defined( _MSC_VER ) && (_MSC_VER < 1900)) || (defined(__GNUC__))

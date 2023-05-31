@@ -48,8 +48,8 @@ void fdct8(float *, float *);
 void fdct8_dual(float *, float *);
 void fdct8_dual_mono(float *, float *);
 
-void window(float *vbuf, int vb_ptr, short *pcm);
-void window_dual(float *vbuf, int vb_ptr, short *pcm);
+void window32(float *vbuf, int vb_ptr, short *pcm);
+void window32_dual(float *vbuf, int vb_ptr, short *pcm);
 void window16(float *vbuf, int vb_ptr, short *pcm);
 void window16_dual(float *vbuf, int vb_ptr, short *pcm);
 void window8(float *vbuf, int vb_ptr, short *pcm);
@@ -122,7 +122,7 @@ void sbt_mono(float *sample, short *pcm, int n)
    for (i = 0; i < n; i++)
    {
       fdct32(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-      window(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+      window32(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
       sample += 64;
       pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
       pcm += 32;
@@ -138,8 +138,8 @@ void sbt_dual(float *sample, short *pcm, int n)
    {
       fdct32_dual(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
       fdct32_dual(sample + 1, pMP3Stream->vbuf2 + pMP3Stream->vb_ptr);
-      window_dual(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
-      window_dual(pMP3Stream->vbuf2, pMP3Stream->vb_ptr, pcm + 1);
+      window32_dual(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+      window32_dual(pMP3Stream->vbuf2, pMP3Stream->vb_ptr, pcm + 1);
       sample += 64;
       pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
       pcm += 64;
@@ -156,7 +156,7 @@ void sbt_dual_mono(float *sample, short *pcm, int n)
    for (i = 0; i < n; i++)
    {
       fdct32_dual_mono(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-      window(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+      window32(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
       sample += 64;
       pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
       pcm += 32;
@@ -172,7 +172,7 @@ void sbt_dual_left(float *sample, short *pcm, int n)
    for (i = 0; i < n; i++)
    {
       fdct32_dual(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-      window(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+      window32(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
       sample += 64;
       pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
       pcm += 32;
@@ -188,7 +188,7 @@ void sbt_dual_right(float *sample, short *pcm, int n)
    for (i = 0; i < n; i++)
    {
       fdct32_dual(sample, pMP3Stream->vbuf + pMP3Stream->vb_ptr);
-      window(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
+      window32(pMP3Stream->vbuf, pMP3Stream->vb_ptr, pcm);
       sample += 64;
       pMP3Stream->vb_ptr = (pMP3Stream->vb_ptr - 32) & 511;
       pcm += 32;

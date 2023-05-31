@@ -58,25 +58,15 @@ extern qboolean R_inPVS( vec3_t p1, vec3_t p2 );
 
 void UI_SetActiveMenu( const char* menuname,const char *menuID );
 
-qboolean CL_InitCGameVM( void *gameLibrary )
+extern "C" Q_EXPORT void QDECL dllEntry( intptr_t (QDECL  *syscallptr)( intptr_t arg, ... ) );
+extern "C" Q_EXPORT intptr_t QDECL cg_vmMain( int command, intptr_t arg0, intptr_t arg1, intptr_t arg2, intptr_t arg3, intptr_t arg4, intptr_t arg5, intptr_t arg6, intptr_t arg7  );
+
+qboolean CL_InitCGameVM( void )
 {
 	typedef intptr_t SyscallProc( intptr_t, ... );
 	typedef void DllEntryProc( SyscallProc * );
 
-	DllEntryProc *dllEntry = (DllEntryProc *)Sys_LoadFunction( gameLibrary, "dllEntry" );
-	cgvm.entryPoint = (intptr_t (*)(int,...))Sys_LoadFunction( gameLibrary, "vmMain" );
-
-	if ( !cgvm.entryPoint || !dllEntry ) {
-#ifdef JK2_MODE
-		const char *gamename = "jospgame";
-#else
-		const char *gamename = "jagame";
-#endif
-
-		Com_Printf( "CL_InitCGameVM: client game entry point not found in %s" ARCH_STRING DLL_EXT ": %s\n",
-					gamename, Sys_LibraryError() );
-		return qfalse;
-	}
+	cgvm.entryPoint = (intptr_t (*)(int,...))cg_vmMain;
 
 	dllEntry( VM_DllSyscall );
 
@@ -1658,4 +1648,3 @@ void CL_SetCGameTime( void ) {
 		CL_AdjustTimeDelta();
 	}
 }
-

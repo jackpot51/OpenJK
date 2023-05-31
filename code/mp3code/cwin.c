@@ -37,7 +37,7 @@ portable C
 #include "config.h"
 
 /*-------------------------------------------------------------------------*/
-void window(float *vbuf, int vb_ptr, short *pcm)
+void window32(float *vbuf, int vb_ptr, short *pcm)
 {
    int i, j;
    int si, bx;
@@ -108,7 +108,7 @@ void window(float *vbuf, int vb_ptr, short *pcm)
 
 
 /*------------------------------------------------------------*/
-void window_dual(float *vbuf, int vb_ptr, short *pcm)
+void window32_dual(float *vbuf, int vb_ptr, short *pcm)
 {
    int i, j;			/* dual window interleaves output */
    int si, bx;

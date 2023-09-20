@@ -89,4 +89,4 @@ mark_as_advanced(JPEG_LIBRARIES JPEG_INCLUDE_DIR)
 
 # Build as position-independent code, since it will probably be linked into a
 # dynamic library.
-set_property(TARGET bundled_libjpeg PROPERTY POSITION_INDEPENDENT_CODE True)
+#set_property(TARGET bundled_libjpeg PROPERTY POSITION_INDEPENDENT_CODE True)

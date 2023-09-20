@@ -195,9 +195,9 @@ if (NOT WIN32 AND NOT APPLE)
 	set(SharedDefines "ARCH_STRING=\"${Architecture}\"")
 endif()
 
-if(CMAKE_SYSTEM_NAME MATCHES "BSD")
+#if(CMAKE_SYSTEM_NAME MATCHES "BSD")
   add_definitions(-DIOAPI_NO_64)
-endif()
+#endif()
 
 # Compiler settings
 if(MSVC)

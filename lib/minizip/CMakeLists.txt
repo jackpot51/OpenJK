@@ -56,4 +56,4 @@ mark_as_advanced(MINIZIP_LIBRARIES MINIZIP_INCLUDE_DIRS)
 
 # We need to build it as position-independent code, because it might get linked
 # into dynamic libraries.
-set_property(TARGET bundled_minizip PROPERTY POSITION_INDEPENDENT_CODE True)
+#set_property(TARGET bundled_minizip PROPERTY POSITION_INDEPENDENT_CODE True)

@@ -65,4 +65,4 @@ mark_as_advanced(PNG_LIBRARIES PNG_INCLUDE_DIRS)
 
 # Build as position-independent code, since it will probably be linked into a
 # dynamic library.
-set_property(TARGET bundled_libpng PROPERTY POSITION_INDEPENDENT_CODE True)
+#set_property(TARGET bundled_libpng PROPERTY POSITION_INDEPENDENT_CODE True)
